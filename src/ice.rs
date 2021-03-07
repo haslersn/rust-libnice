@@ -22,6 +22,7 @@ use std::pin::Pin;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::task::Context;
+use std::fmt;
 
 pub use crate::ffi::BoolResult;
 pub use crate::ffi::NiceCompatibility;
@@ -411,6 +412,19 @@ pub struct StreamComponent {
     state_stream: mpsc::Receiver<ComponentState>,
     source: mpsc::Receiver<Vec<u8>>,
     sink: mpsc::UnboundedSender<ControlMsg>,
+}
+
+impl fmt::Debug for StreamComponent {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("StreamComponent")
+         .field("_recv_handle", &self._recv_handle)
+         .field("stream_id", &self.stream_id)
+         .field("component_id", &self.component_id)
+         .field("state", &self.state)
+         .field("state_stream", &self.state_stream)
+         .field("source", &self.source)
+         .finish()
+    }
 }
 
 impl StreamComponent {

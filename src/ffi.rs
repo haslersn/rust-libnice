@@ -353,6 +353,7 @@ impl NiceAgent {
 ///
 /// Dropping this handle will detach **any** currently attached callback for the same component.
 #[must_use = "when an AttachRecvHandle is dropped, it detaches the callback"]
+#[derive(Debug)]
 pub struct AttachRecvHandle(
     NiceAgent,
     c_uint,
